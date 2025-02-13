@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIXEIRA VERMELHA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        #carousel {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .carousel-image {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Áudio da música de fundo -->
+    <audio id="background-music" loop>
+        <source src="brat.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Carrossel de imagens -->
+    <div id="carousel">
+        <img src="0.png" class="carousel-image active">
+        <img src="1.png" class="carousel-image">
+        <img src="2.png" class="carousel-image">
+        <img src="3.png" class="carousel-image">
+        <img src="4.png" class="carousel-image">
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        let firstClick = true;
+        const images = document.querySelectorAll('.carousel-image');
+        const carousel = document.getElementById('carousel');
+        const backgroundMusic = document.getElementById('background-music');
+
+        function nextImage() {
+            images[currentIndex].classList.remove('active'); // Remove a classe ativa
+            currentIndex = (currentIndex + 1) % images.length; // Avança para a próxima imagem
+            images[currentIndex].classList.add('active'); // Ativa a nova imagem
+        }
+
+        // Tocar música e avançar a imagem no primeiro clique
+        carousel.addEventListener('click', () => {
+            if (firstClick) {
+                firstClick = false; // Garante que só toca uma vez
+                backgroundMusic.play().catch(error => console.error("Erro ao reproduzir áudio:", error));
+            }
+            nextImage(); // Passa para a próxima imagem
+        });
+
+    </script>
+</body>
+</html>
